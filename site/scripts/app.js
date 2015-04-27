@@ -1,4 +1,4 @@
-console.log ("#Gama: Cargo app.js");
+console.log ("#Fer: Cargo app.js");
 var modulo1=
 	angular.module("reeditgam",[]);
 modulo1.controller("mainCtrl",[
