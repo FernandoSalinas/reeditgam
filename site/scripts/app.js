@@ -1,39 +1,15 @@
-console.log ("#Fer: Cargo app.js");
-var modulo1=
+console.log("#Fernando: Cargo app.js");
+var modulo1 = 
 	angular.module("reeditgam",[]);
 modulo1.controller("mainCtrl",[
 	'$scope',
 	function($scope){
 		$scope.test = "Hola Angular";
-		//Modelo
 		$scope.posts = 
-		[{title: "Post 1", upvotes: 5},
-		{title: "Post 2", upvotes: 15},
-		{title: "Post 3", upvotes: 7},
-		{title: "Post 4", upvotes: 9},
-		{title: "Post 5", upvotes: 3},
-		{title: "Post 6", upvotes: 5}];
-
-		//Metodo del controlador
-		$scope.addPost = function (){
-			if(!$scope.title || $scope.title === "")
-			{
-				alert("No se pertite postear titulos vacios");
-				return;
-			}
-			$scope.posts.push(
-				{
-					title: $scope.title,
-					link: $scope.link,
-					upvotes:0
-				});
-			//Two-way data binding
-			$scope.title = "";
-			$scope.link = "";
-		};
-		//Metodo para incrementar el voto 
-		$scope.incrementUpvotes = function (post)
-		{
-			post.upvotes += 1;
-		};
+		["Post 1 Hola",
+		 "Post 2",
+		 "Post 3",
+		 "Post 4",
+		 "Post 5",
+		 "Post 6"];
 	}]);
