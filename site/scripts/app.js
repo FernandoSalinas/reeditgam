@@ -4,7 +4,8 @@ Console.log("#Fernando: Cargo app.js");
  // como parametro del arreglo de objetos
  // del modulo
  var modulo1 = 
- 	angular.module("reeditgam",['ui.router']);
+	angular.module("reeditgam",['ui.router']);
+	angular.module("reeditgam",['ui.router','hSweetAlert']);
  
  // Configurando las rutas
  // Recibe un arreglo de elementos
@@ -13,20 +14,19 @@ Console.log("#Fernando: Cargo app.js");
  	'$urlRouterProvider',
  	function($stateProvider, $urlRouterProvider){
  		// Iniciando rutina de configuracion
-+		// Creando ruta /Home
+ 		// Creando ruta /Home
  		$stateProvider.state('home',{
  			//Definiendo estado como un objeto
  			url:"/home", // Url que define el estado
  			templateUrl: "/home.html", // Plantilla base para el estado
--			controller: 'mainCtrl'
-+			controller: "mainCtrl"
-+		});
-+		// Creando Ruta de visualizacion
-+		// de Post
-+		$stateProvider.state('posts',{
-+			url: "/posts/{id}",
-+			templateUrl: "/posts.html",
-+			controller: "postsCtrl"
+ 			controller: "mainCtrl"
+ 		});
+ 		// Creando Ruta de visualizacion
+ 		// de Post
+ 		$stateProvider.state('posts',{
+ 			url: "/posts/{id}",
+ 			templateUrl: "/posts.html",
+ 			controller: "postsCtrl"
  		});
  		// Url por defecto
  		$urlRouterProvider.otherwise('home');
@@ -60,12 +60,13 @@ Console.log("#Fernando: Cargo app.js");
  }]);
  
  // Creando controlador	
--// dependcy injection
-+// dependency injection
-+// Creando controlador mainCtrl
+ // dependency injection
+ // Creando controlador mainCtrl
  modulo1.controller("mainCtrl",[
- 	'$scope','posts', // Inyectando factory post
- 	function($scope, posts){
+-	'$scope','posts', // Inyectando factory post
+-	function($scope, posts){
+	'$scope','posts','sweet', // Inyectando factory post
+	function($scope, posts, sweet){
  		$scope.test = "Hola Angular";
  		
  		// Modelo al cual se le asigna
@@ -76,7 +77,9 @@ Console.log("#Fernando: Cargo app.js");
  		 $scope.addPost = function(){
  		 	if(!$scope.title || $scope.title === "")
  		 	{
- 		 		alert("No se permite postear titulos vacios");
+-		 		alert("No se permite postear titulos vacios");
+		 		//alert("No se permite postear titulos vacios");
+				 sweet.show('No se permite postear titulos vacios');
  		 		return;
  		 	}
  		 	$scope.posts.push(
@@ -94,14 +97,13 @@ Console.log("#Fernando: Cargo app.js");
  		 $scope.incrementUpvotes = function(post){
  		 	post.upvotes += 1;
  		 };
--	}]); 
-+	}]);
-+
-+// Creando controlador postsCtrl
-+modulo1.controller("postCtrl",[
-+	'$scope',
-+	'$stateParams',
-+	'posts'],function($scope, $stateParams, posts){
-+		// Cuerpo del controlador
-+		
-+	}); 
+ 	}]);
+ 
+ // Creando controlador postsCtrl
+ modulo1.controller("postCtrl",[
+ 	'$scope',
+ 	'$stateParams',
+ 	'posts'],function($scope, $stateParams, posts){
+ 		// Cuerpo del controlador
+ 		
+ 	});
