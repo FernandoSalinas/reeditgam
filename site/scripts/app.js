@@ -1,112 +1,90 @@
 Console.log("#Fernando: Cargo app.js");
 
- //inyectando el modulo de ui-router
- //como parametro del arreglo de objetos 
- //del modulo
- var modulo1=
- angular.module("reeditgam", ['ui.router']);
-//configurando las rutas
-//recibe un arreglo de elementos
-modulo1.config(
-	['$stateProvider', 
-	'$urlRouterProvider',
-	function($stateProvider, $urlRouterProvider){
-		//inciando rutina de configuracion
-		$stateProvider.state('home', {
-			//definiendo estado como un objeto 
-			url:"/home", //url que define el estado 
-			templateUrl:"/home.html",//platilla base para el estado
-			controller: "mainCtrl" 
-					});
-		//crando tura de visualizacion
-		// de post
-
-		$stateProvider.state('posts',{
-             url:"/posts/{id}",
-             templateUrl:"/posts.html",
-             controller: 'postsCtrl'
-
-		});
-		//url por defecto 
-		$urlRouterProvider.otherwise('home');
-	}]);
-
-
- //creando un servicio del tipo factory
+ // Inyectadon el modulo de ui-router
++// como parametro del arreglo de objetos
++// del modulo
+ var modulo1 = 
+-	angular.module("reeditgam",[]);
++	angular.module("reeditgam",['ui.router']);
++
++// Configurando las rutas
++// Recibe un arreglo de elementos
++modulo1.config(
++	['$stateProvider',
++	'$urlRouterProvider',
++	function($stateProvider, $urlRouterProvider){
++		// Iniciando rutina de configuracion
++		$stateProvider.state('home',{
++			//Definiendo estado como un objeto
++			url:"/home", // Url que define el estado
++			templateUrl: "/home.html", // Plantilla base para el estado
++			controller: 'mainCtrl'
++		});
++		// Url por defecto
++		$urlRouterProvider.otherwise('home');
++	}]);
+ 
+ // Creando un servicio del tipo factory
  modulo1.factory('posts',[function(){
- 	//cuerpo del factory llamado post
+ 	// Cuerpo del factory llamado post
  	var o = {
  		posts : [
- 		{
- 	    title: "Post 1", upvotes: 15,
- 		comments: [
- 		{author: "Karina", body:"Esto esta de pelos", upvotes:3},
- 		{author: "Gamaliel",body:"Esto es basura" , upvotes:0}]
- 	},
- 	{
- 	    title: "Post 2", upvotes: 4,
- 		comments: [
- 		{author: "Coco", body:"Esta asombroso", upvotes:5},
- 		{author: "Cristian",body:"Esto esta aburrido" , upvotes:1}]
- 	}
+ 			{	
+ 				title: "post 1", upvotes: 15,
+ 				comments: [
+ 					{author: "Karina", body:"Esto esta de pelos.",
+ 					upvotes:3},
+ 					{author: "Gamaliel", body:"Esto es basura.",
+ 					upvotes:0}]
+ 			},
+ 			{	
+ 				title: "post 2", upvotes: 4,
+ 				comments: [
+ 					{author: "Coco", body:"Esto es asombroso.",
+ 					upvotes:5},
+ 					{author: "Cristian", body:"Esto esta aburrido.",
+ 					upvotes:1}]
+ 			}
  		]
  	};
- 	//retornando objeto de datos persistentes
-return o;
+ 	// Retronado objeto de datos persistentes
+ 	return o;
  }]);
-
- //creando controlador
-// 
-// 
-modulo1.controller("mainCtrl",[
-	'$scope','posts',//inyectando factory post
-	function ($scope, posts){
-		$scope.test ="Hola Angular";
-
-		//modelo al cual se le asigna 
-		//el resultado del factory
-
-	$scope.posts = posts.posts;
-
-//metodo del controlador
-$scope.addPost = function (){
-if(!$scope.title || $scope.title === "")
-{
-alert ("No se permite postear titulos vacios")
-return;
-
-}
-
-$scope.posts.push(
-	{
-		title:$scope.title,
-link: $scope.link,
-		upvotes: 0});
- //two-way data binding 	
-  //sirve para borrar o limpiar formulario
-$scope.title = "";
-$scope.link = "";
- };
-
-//metodo que incrementa el voto
-
-//De un post en una unidad
-$scope.incrementUpvotes = function (post){
-post.upvotes += 1;
-
-};
-
-}]);
-
-//Creando Controlador postCtrl//
-modulo1.controller("postCtrl",[
-	'$scope',
-	'$stateParams',
-	'posts'],function($scope, $stateParams,posts){
-//cuerpo del controlador
-
-	});
-
+ 
+ // Creando controlador	
+ // dependcy injection
+ modulo1.controller("mainCtrl",[
+ 	'$scope','posts', // Inyectando factory post
+ 	function($scope, posts){
+ 		$scope.test = "Hola Angular";
+ 		
+ 		// Modelo al cual se le asigna
+ 		// el resultado del factory
+ 		$scope.posts = posts.posts;
+ 
+ 		 // Metodo del controlador
+ 		 $scope.addPost = function(){
+ 		 	if(!$scope.title || $scope.title === "")
+ 		 	{
+ 		 		alert("No se permite postear titulos vacios");
+ 		 		return;
+ 		 	}
+ 		 	$scope.posts.push(
+ 		 		{
+ 		 			title: $scope.title,
+ 		 			link: $scope.link,
+ 		 		 	upvotes: 0
+ 		 		 });
+ 		 	// Two-way data binding
+ 		 	$scope.title = "";
+ 		 	$scope.link = "";
+ 		 };
+ 		 // Metodo que incrementa el voto
+ 		 // de un post en una unidad
+ 		 $scope.incrementUpvotes = function(post){
+ 		 	post.upvotes += 1;
+ 		 };
+ 	}]);
 
 
 
