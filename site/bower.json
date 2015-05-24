@@ -7,13 +7,19 @@
   "description": "paw",
   "main": "index.html",
   "license": "MIT",
-  "homepage": "www.gamaliel.com",
+  "homepage": "www.ferisaal.com",
   "private": true,
   "ignore": [
-    "**/.*",
+    "**/.*", 
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests"*
   ]
+  ],
+   "dependencies": {
+    "sweetalert": "~0.5.0",
+     "angular-h-sweetalert": "~1.4.3"
+ }
+ 
 }

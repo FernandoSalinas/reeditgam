@@ -1,28 +1,36 @@
 Console.log("#Fernando: Cargo app.js");
 
  // Inyectadon el modulo de ui-router
-+// como parametro del arreglo de objetos
-+// del modulo
+ // como parametro del arreglo de objetos
+ // del modulo
  var modulo1 = 
--	angular.module("reeditgam",[]);
-+	angular.module("reeditgam",['ui.router']);
-+
-+// Configurando las rutas
-+// Recibe un arreglo de elementos
-+modulo1.config(
-+	['$stateProvider',
-+	'$urlRouterProvider',
-+	function($stateProvider, $urlRouterProvider){
-+		// Iniciando rutina de configuracion
-+		$stateProvider.state('home',{
-+			//Definiendo estado como un objeto
-+			url:"/home", // Url que define el estado
-+			templateUrl: "/home.html", // Plantilla base para el estado
-+			controller: 'mainCtrl'
+ 	angular.module("reeditgam",['ui.router']);
+ 
+ // Configurando las rutas
+ // Recibe un arreglo de elementos
+ modulo1.config(
+ 	['$stateProvider',
+ 	'$urlRouterProvider',
+ 	function($stateProvider, $urlRouterProvider){
+ 		// Iniciando rutina de configuracion
++		// Creando ruta /Home
+ 		$stateProvider.state('home',{
+ 			//Definiendo estado como un objeto
+ 			url:"/home", // Url que define el estado
+ 			templateUrl: "/home.html", // Plantilla base para el estado
+-			controller: 'mainCtrl'
++			controller: "mainCtrl"
 +		});
-+		// Url por defecto
-+		$urlRouterProvider.otherwise('home');
-+	}]);
++		// Creando Ruta de visualizacion
++		// de Post
++		$stateProvider.state('posts',{
++			url: "/posts/{id}",
++			templateUrl: "/posts.html",
++			controller: "postsCtrl"
+ 		});
+ 		// Url por defecto
+ 		$urlRouterProvider.otherwise('home');
+ 	}]);
  
  // Creando un servicio del tipo factory
  modulo1.factory('posts',[function(){
@@ -52,7 +60,9 @@ Console.log("#Fernando: Cargo app.js");
  }]);
  
  // Creando controlador	
- // dependcy injection
+-// dependcy injection
++// dependency injection
++// Creando controlador mainCtrl
  modulo1.controller("mainCtrl",[
  	'$scope','posts', // Inyectando factory post
  	function($scope, posts){
@@ -84,31 +94,14 @@ Console.log("#Fernando: Cargo app.js");
  		 $scope.incrementUpvotes = function(post){
  		 	post.upvotes += 1;
  		 };
- 	}]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-	}]); 
++	}]);
++
++// Creando controlador postsCtrl
++modulo1.controller("postCtrl",[
++	'$scope',
++	'$stateParams',
++	'posts'],function($scope, $stateParams, posts){
++		// Cuerpo del controlador
++		
++	}); 
